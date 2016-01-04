@@ -27,12 +27,10 @@ class NanoWidget extends includes(NanoCustomEventSupport, NanoNodeSupport) {
     for (let className of this.class.split(' ')) {
       this.element.classList.add(className);
     }
-
-    console.log('instanciated', conf);
   }
 
   _getClass () {
-    return 'widget';
+    return '';
   }
 
   _getElement () {
