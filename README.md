@@ -1,6 +1,8 @@
 # nano-widget
 An es6 UI element API
 
+[Document in progress needs feedback]
+
 # Intro
 
 NanoWidget is a personal interpretation of [azendal's Widget](https://github.com/azendal/neon/blob/master/stdlib/widget.js)
