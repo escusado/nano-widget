@@ -26,7 +26,7 @@ current coding requirements.
 - Get rid of the multiline workaround for defining HTML
 
 # The UI's problem
-## My personal philosophy on how UI should be coded, [skip to API](#api) the code if not on the mood.
+## My personal philosophy on how UI should be coded, [skip to API](https://github.com/escusado/nano-widget#api) the code if not on the mood.
 
 TL;DR; We need a native non-magical way of interacting with UI elements (mostly DOM).
 
