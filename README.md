@@ -49,18 +49,27 @@ and so on...
 
 [breathe]
 
-So, most of the time you don't need Angular, and most of the times you don't even
-need jQuery anymore, why don't we go back to the basic stuff, native things have
+The code Angular invites you to write is complex.
+
+- But Angular does more than that!
+
+... and that exactly is the problem.
+
+Most of the times you don't need Angular, and most of the times you don't even
+need jQuery anymore, why don't we go back to the basic stuff?, native things have
 become super easy to use, fast, and there is ton of information of it around.
+
+### Meet Widget
 
 ```javascript
 'use strict';
-
+//Extend it
 class HTMLTestWidget extends NanoWidget {
 
+  //or _getElement :)
   _getHTML () {
     return `
-      <div class="my custom element classes">
+      <div class="my custom native element classes">
         Custom HTML Content
         <input type="text" class="my-value" value="my value before click">
         <button class="my-button">Click me!</button>
@@ -69,13 +78,13 @@ class HTMLTestWidget extends NanoWidget {
   }
 
   constructor () {
-    super();
+    super(); //call papa for element creation
 
+    //do whatever you want with your element dom node
     this.myValueEl = this.element.querySelector('.my-value');
     this.testButtonEl = this.element.querySelector('.my-button');
 
-    console.log('ppp', this.myValueEl, this.testButtonEl);
-
+    //I like to have bindings on the same place
     this._bindEvents();
   }
 
@@ -85,8 +94,75 @@ class HTMLTestWidget extends NanoWidget {
 
   _clickHandler (ev){
     console.log('Click catched!');
+    //native :)
     this.myValueEl.value = 'my value AFTER click';
   }
 
 };
 ```
+
+Thats it, that a simple UI element that you can later use like:
+
+```javascript
+myHTMLWidget = new HTMLTestWidget();
+myHTMLWidget.render(document.body);
+```
+
+And you have a functional UI element build only using native stuff, that you can
+bend to your bidding.
+
+>- AHA! I SEE MAAAAGIIIIIIIC YOU FILTHY LIER!!!!! WTF IS THIS SHIT!
+```
+_getHTML () {
+  return `
+    <div class="my custom native element classes">
+      Custom HTML Content
+      <input type="text" class="my-value" value="my value before click">
+      <button class="my-button">Click me!</button>
+    </div>
+  `;
+}
+```
+
+ok lets see the magic:
+```javascript
+class NanoWidget extends includes(NanoCustomEventSupport, NanoNodeSupport) {
+
+  constructor (conf) {
+    super();
+
+    let _defaults = {
+      active : false,
+      disabled : false,
+      __destroyed : false
+    };
+
+    Object.assign(_defaults, conf);
+    Object.assign(this, _defaults);
+
+    if (!this.element) {
+      this.element = this._getElement(); //LOOK HERE
+    }
+
+    if (this.class) {
+      for (let className of this.class.split(' ')) {
+        this.element.classList.add(className);
+      }
+    }
+  }
+
+  _getElement () {
+    let elementHolder = document.createElement('div');
+    elementHolder.innerHTML = this._getHTML().trim(); //THEN HERE
+    if (elementHolder.childNodes.length > 1) {
+      return elementHolder.childNodes;
+    }
+    return elementHolder.firstChild;
+  }
+
+  //...
+```
+
+Thats it.
+
+Now lets get real for a second,
