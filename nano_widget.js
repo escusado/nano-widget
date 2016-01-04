@@ -20,13 +20,19 @@ class NanoWidget extends includes(NanoCustomEventSupport, NanoNodeSupport) {
       this.element = this._getElement();
     }
 
-    if (this.class) {
-      for (let className of this.class.split(' ')) {
-        this.element.classList.add(className);
-      }
+    if (!this.class) {
+      this.class = this._getClass();
+    }
+
+    for (let className of this.class.split(' ')) {
+      this.element.classList.add(className);
     }
 
     console.log('instanciated', conf);
+  }
+
+  _getClass () {
+    return 'widget';
   }
 
   _getElement () {
