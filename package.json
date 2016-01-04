@@ -1,6 +1,6 @@
 {
   "name": "nano-widget",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "escusado",
   "description": "A simple UI API to interact with native DOM elements",
   "main": "nano_widget.js",

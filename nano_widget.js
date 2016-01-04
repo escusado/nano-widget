@@ -25,7 +25,9 @@ class NanoWidget extends includes(NanoCustomEventSupport, NanoNodeSupport) {
     }
 
     for (let className of this.class.split(' ')) {
-      this.element.classList.add(className);
+      if(className){
+        this.element.classList.add(className);
+      }
     }
   }
 
