@@ -160,7 +160,7 @@ class NanoWidget extends includes(NanoCustomEventSupport, NanoNodeSupport) {
 
   _getElement () {
     let elementHolder = document.createElement('div');
-    elementHolder.innerHTML = this._getHTML().trim(); //THEN HERE
+    htmlContent = this.html || this._getHTML().trim(); //THEN HERE
     if (elementHolder.childNodes.length > 1) {
       return elementHolder.childNodes;
     }
@@ -178,7 +178,7 @@ Enter Modules
 
 ## Meet a Module
 
-```
+```javascript
 //New Module
 class ColorChangeSupport {
   changeColor (newColor) {
@@ -191,7 +191,7 @@ class ColorChangingWidget extends includes(NanoWidget, ColorChangeSupport){};
 
 //Instanciate your new Widget
 let myColorChangingWidget = new ColorChangingWidget({
-  html : '<div>My color changing widget</div>'
+  html : '<div>My color changing widget</div>' //remember? htmlContent = this.html || this._getHTML().trim(); //THEN HERE
 });
 myColorChangingWidget.render(document.body); // sugar for: targetElement.appendChild
 myColorChangingWidget.changeColor('#0F0'); // use your module
@@ -212,7 +212,7 @@ can create a simple class with a nice API and attach that to your `Widgets`.
 We have magic in between and as with all the code in this lib I pretend to keep
 simple, it happens in the `includes` function:
 
-```
+```javascript
 'use strict';
 
 function includes(...modules) {
@@ -260,7 +260,7 @@ have them, but having a pluggable event system is way simpler, enter
 This is a basic port of azendal's `CustomEventSupport`, it lets you attach `Events`
 to your `Widgets` so you can do stuff like:
 
-```
+```javascript
 colorChangerControl.bind('color-changed', function(ev){
   this.color = ev.data.color;
 });
@@ -284,7 +284,7 @@ Top Bar
   -Login Controls
 ```
 
-```
+```javascript
 class TopBar extend NanoWidget {
   constructor (conf) {
     super(conf);
@@ -294,9 +294,7 @@ class TopBar extend NanoWidget {
     }));
     this.siteMenu.render(this.element);
 
-    ...
-
-    this.appendChild(new NanoWidget({
+    this.appendChild(new LoginControlsWidget({
       name: 'loginControls'
     }));
     this.loginControls.render(this.element);
@@ -307,4 +305,17 @@ let myTopBar = new TopBar();
 
 //BONUS! you can drive your UI with the console.
 myTopBar.loginControls.activate();
+```
+
+The magic?
+```javascript
+appendChild (child) {
+  //[...]
+  this.children.push(child);
+  if(child.name){ //if named? add it as its named
+    this[child.name] = child;
+  }
+  child.setParent(this);
+  return child;
+}
 ```

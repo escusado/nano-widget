@@ -11,7 +11,9 @@ class NanoNodeSupport {
     }
 
     this.children.push(child);
-    this[child.name] = child;
+    if(child.name){
+      this[child.name] = child;
+    }
     child.setParent(this);
     return child;
   }
