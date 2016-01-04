@@ -31,3 +31,20 @@ myHTMLWidget = new HTMLTestWidget();
 myHTMLWidget.render(document.body);
 myHTMLWidget.activate();
 myHTMLWidget.disable();
+
+//New Module test
+
+class ColorChangeSupport {
+  changeColor (newColor) {
+    this.element.style.color = newColor;
+  }
+}
+
+class ColorChangingWidget extends includes(NanoWidget, ColorChangeSupport){};
+console.log('ColorChangingWidget.prototype.constructor', ColorChangingWidget.prototype.constructor);
+window.myColorChangingWidget = new ColorChangingWidget({
+  html : '<div>My color changing widget</div>'
+});
+myColorChangingWidget.render(document.body);
+console.log('Color ColorChangingWidget', myColorChangingWidget);
+myColorChangingWidget.changeColor('#0F0');

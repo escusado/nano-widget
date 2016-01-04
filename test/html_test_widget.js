@@ -17,9 +17,7 @@ class HTMLTestWidget extends NanoWidget {
 
     this.myValueEl = this.element.querySelector('.my-value');
     this.testButtonEl = this.element.querySelector('.my-button');
-
-    console.log('ppp', this.myValueEl, this.testButtonEl);
-
+    
     this._bindEvents();
   }
 

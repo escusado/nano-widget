@@ -1,12 +1,18 @@
 'use strict';
 
 function includes(...modules) {
-  let _Mix = class {};
+  let desc, _Mix = class {};
+
+  //if extending NeoWidget
+  if ( modules.filter((module)=>{return module.name === 'NanoWidget';}).length ) {
+    modules.splice(modules.indexOf(NanoWidget), 1);
+    _Mix = class extends NanoWidget {};
+  }
 
   for (let module of modules) {
     for (let key of Object.getOwnPropertyNames(module.prototype)) {
-      if (key !== "constructor" && key !== "prototype" && key !== "name") {
-        let desc = Object.getOwnPropertyDescriptor(module.prototype, key);
+      desc = Object.getOwnPropertyDescriptor(module.prototype, key);
+      if (key !== 'constructor' && key !== 'name') {
         Object.defineProperty(_Mix.prototype, key, desc);
       }
     }

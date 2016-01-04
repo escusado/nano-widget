@@ -6,6 +6,8 @@ class NanoWidget extends includes(NanoCustomEventSupport, NanoNodeSupport) {
     super();
 
     let _defaults = {
+      html : null,
+      element : null,
       active : false,
       disabled : false,
       __destroyed : false
@@ -23,11 +25,14 @@ class NanoWidget extends includes(NanoCustomEventSupport, NanoNodeSupport) {
         this.element.classList.add(className);
       }
     }
+
+    console.log('instanciated', conf);
   }
 
   _getElement () {
-    let elementHolder = document.createElement('div');
-    elementHolder.innerHTML = this._getHTML().trim();
+    let elementHolder = document.createElement('div'),
+        htmlContent = this.html || this._getHTML().trim();
+    elementHolder.innerHTML = htmlContent;
     if (elementHolder.childNodes.length > 1) {
       return elementHolder.childNodes;
     }
