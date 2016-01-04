@@ -8,7 +8,13 @@ An es6 UI element API
 NanoWidget is a personal interpretation of [azendal's Widget](https://github.com/azendal/neon/blob/master/stdlib/widget.js)
 for es6.
 
-# The problem
+A UI API definition to work with DOM UI elements, tries to use most of the native
+stuff and offers a standard API that includes:
+
+- Event Support: For easy signaling
+- Node Support: To create tree structures with the `Widget`s
+
+# The lib problem
 
 Widget lib depends on neon.js, as es6 now supports a native `class` definition
 using Widget had became a little of a challenge for me, given the changing
@@ -19,8 +25,8 @@ current coding requirements.
 - Simpler API (For my liking there were elements of it that I rarely used e.g. `NodeSupport.prototype.nextSibling`).
 - Get rid of the multiline workaround for defining HTML
 
-# The Widget Way
-## My personal philosophy on how UI should be coded, skip to the code if not on the mood.
+# The UI's problem
+## My personal philosophy on how UI should be coded, [skip to API](#API) the code if not on the mood.
 
 TL;DR; We need a native non-magical way of interacting with UI elements (mostly DOM).
 
@@ -332,7 +338,7 @@ You can create a widget on the fly or have a class in its own file, either way t
 API should remain the same.
 
 We can define the content of a `Widget` using an `HTML` string, a `DOM element`:
-```
+```javascript
 let myOnTheFlyWidget = new NeoWidget({
   html: '<a>Sup!</a>'
 });
@@ -403,7 +409,7 @@ Attach a child to the `Widget` `children` array if the child has a `.name`
 property its added to the `Widget` instance as a property. This lets us have a
 console API for free.
 
-```
+```javascript
 //children can be all the country States
 myCountryList.myChildCountry.children[2].activate();
 ```
