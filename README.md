@@ -414,7 +414,7 @@ console API for free.
 myCountryList.myChildCountry.children[2].activate();
 ```
 
-### `.remove(child)`
+### `.removeChild(child)`
 *`args`*
 `child`: <Object> An instance, mostly other `Widgets`
 
