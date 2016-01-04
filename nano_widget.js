@@ -16,6 +16,10 @@ class NanoWidget extends includes(NanoCustomEventSupport, NanoNodeSupport) {
     Object.assign(_defaults, conf);
     Object.assign(this, _defaults);
 
+    if(this._init){
+      this._init(conf);
+    }
+
     if (!this.element) {
       this.element = this._getElement();
     }
