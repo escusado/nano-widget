@@ -1,7 +1,7 @@
 'use strict';
 
 class NanoNodeSupport {
-  appendChild (child) {
+  appendChild (child, beforeChild) {
     if(child.parent) {
       child.parent.removeChild(child);
     }
@@ -10,11 +10,22 @@ class NanoNodeSupport {
       this.children = [];
     }
 
-    this.children.push(child);
-    if(child.name){
-      this[child.name] = child;
+    if (typeof beforeChild === 'undefined') {
+
+      this.children.push(child);
+      if(child.name){
+        this[child.name] = child;
+      }
+      child.setParent(this);
+
+    } else {
+        position = this.children.indexOf(beforeChild);
+        this.children.splice(position, 0, child);
+
+        this[child.name] = child;
+        child.setParent(this);
     }
-    child.setParent(this);
+
     return child;
   }
 
