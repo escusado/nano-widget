@@ -24,11 +24,11 @@ API should remain the same.
 
 We can define the content of a `Widget` using an `HTML` string, a `DOM element`:
 ```javascript
-let myOnTheFlyWidget = new NeoWidget({
+let myOnTheFlyWidget = new NanoWidget({
   html: '<a>Sup!</a>'
 });
 
-let myOnTheFlyWidget = new NeoWidget({
+let myOnTheFlyWidget = new NanoWidget({
   element: document.createElement('a')
 });
 
@@ -43,6 +43,16 @@ class MyDeclaredWidget extends NanoWidget {
 class MyDeclaredWidget extends NanoWidget {
   _getElement () {
     return document.createElement('a');
+  }
+}
+
+// or redefine the constructor
+
+class MyDeclaredWidget extends NanoWidget {
+  constructor (conf) {
+    super(conf);
+    this.element = window.document.find('.my-already-on-the-DOM-element');
+    return this;
   }
 }
 
