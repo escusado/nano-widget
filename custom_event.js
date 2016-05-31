@@ -2,7 +2,6 @@
 
 class CustomEvent {
   constructor (type, data) {
-    this.bubbles = true;
     this.cancelable = true;
     this.currentTarget = null;
     this.timeStamp = 0;
