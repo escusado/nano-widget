@@ -1,13 +1,15 @@
 {
   "name": "nano-widget",
   "version": "1.0.92",
-  "author": "escusado",
+  "author": "@escusado",
   "description": "A simple UI API to interact with native DOM elements",
-  "main": "nano_widget.js",
+  "main": "lib/nano_widget.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "build-es5": "browserify -t [ babelify --presets [ es2015 ] ] -t uglifyify lib/web_build.js > nano_widget.min.es5.js",
+    "build": "browserify -t [ babelify --presets [ es2015 ] ] lib/web_build.js > nano_widget.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,10 +20,16 @@
     "ui",
     "widget"
   ],
-  "author": "@escusado",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/escusado/nano-widget/issues"
   },
-  "homepage": "https://github.com/escusado/nano-widget"
+  "homepage": "https://github.com/escusado/nano-widget",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2016": "^6.11.3",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "uglifyify": "^3.0.2"
+  }
 }
