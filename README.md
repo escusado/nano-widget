@@ -24,6 +24,8 @@ API should remain the same.
 
 We can define the content of a `Widget` using an `HTML` string, a `DOM element`:
 ```javascript
+const NanoWidget = require('nano-widget');
+
 let myOnTheFlyWidget = new NanoWidget({
   html: '<a>Sup!</a>'
 });
